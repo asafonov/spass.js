@@ -11,14 +11,14 @@
   --back_color: #0A1829;
   --border_color: #1D334A;
 
-  --height_0: max(2.1vw, 2.1vh); /* 11px */
-  --height_1: max(3vw, 3vh); /* 17px */
-  --height_2: max(3.6vw, 3.6vh); /* 21px */
-  --height_3: max(9vw, 9vh); /* 52px */
-  --height_4: max(11vw, 11vh); /* 62px */
+  --height_0: 2.1vh;
+  --height_1: 3vh;
+  --height_2: 3.6vh;
+  --height_3: 9vh;
+  --height_4: 11vh;
 
-  --height_100: calc(100% - 2*var(--height_0)); /* 100% */
-  --height_101: calc(100vh - 2*var(--height_0)); /* 100vh */
+  --height_100: calc(100% - 2*var(--height_2)); /* 100% */
+  --height_101: calc(100vh - 2*var(--height_2)); /* 100vh */
 }
 
 *, html, body, h1, h2, h3, h4, h5, h6, a, img, ul, ol, li, div, span, b, time,
@@ -55,7 +55,6 @@ h1 {
 }
 
 .big_div {
-  max-width: 1024px;
   margin: auto;
 }
 
@@ -445,4 +444,34 @@ label span {
 .popup .button {
   width: 45%;
   margin-top: var(--height_4);
+}
+
+@media only screen and (orientation: landscape) {
+  .big_div {
+    display: none;
+  }
+
+  body {
+    overflow: hidden;
+  }
+
+  body:before {
+    content: "";
+    width: 100%;
+    height: var(--height_100);
+    position: absolute;
+    display: flex;
+    background: url(images/logo.svg) center no-repeat;
+    background-size: 30%;
+    animation-name: rotate;
+    animation-delay: 0.5s;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes rotate {
+    from {transform: rotate(0deg)}
+    to {transform: rotate(-90deg)}
+  }
+
 }
