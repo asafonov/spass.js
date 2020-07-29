@@ -59,27 +59,27 @@ h1 {
 }
 
 .ot1 {
-  opacity: 80%;
+  opacity: 0.8;
 }
 
 .ot2 {
-  opacity: 70%;
+  opacity: 0.7;
 }
 
 .ot3 {
-  opacity: 60%;
+  opacity: 0.6;
 }
 
 .ol_0 {
-  opacity: 2%;
+  opacity: 0.02;
 }
 
 .ol_1, .item.open div.ol_0 {
-  opacity: 6%;
+  opacity: 0.06;
 }
 
 .ol_2 {
-  opacity: 26%;
+  opacity: 0.26;
 }
 
 .ob {
@@ -109,14 +109,14 @@ input, .button {
 .button:hover .ob,
 .button:active .ob,
 .button:focus .ob {
-  opacity: 80%;
+  opacity: 0.8;
   transition: 0.3s;
 }
 
 .button.cancel:hover .ob,
 .button.cancel:hover .ob,
 .button.cancel:hover .ob {
-  opacity: 40%;
+  opacity: 0.4;
 }
 
 input[type=radio] {
@@ -256,13 +256,13 @@ label span {
 }
 
 .items .item:hover .ob {
-  opacity: 6%;
+  opacity: 0.06;
   transition: 0.3s;
 }
 
 .item .name {
   font-size: var(--height_2);
-  line-height: var(--height_4);
+  line-height: 4;
   cursor: pointer;
 }
 
@@ -326,7 +326,7 @@ label span {
 }
 
 .act .done.true .ob {
-  opacity: 50%;
+  opacity: 0.5;
   background-color: var(--green_color);
 }
 
@@ -349,7 +349,7 @@ label span {
   top: 0;
   left: var(--height_0);
   font-size: var(--height_0);
-  opacity: 20%;
+  opacity: 0.2;
 }
 
 .field input[name=item_name]+span:before {
@@ -372,7 +372,7 @@ label span {
 
 .field input:active,
 .field input:focus  {
-  opacity: 50%;
+  opacity: 0.5;
   transition: 0.2s;
 }
 
@@ -383,13 +383,13 @@ label span {
   height: var(--height_2);
   border: calc(0.1*var(--height_0)) solid var(--border_color);
   background-color: white;
-  opacity: 6%;
+  opacity: 0.06;
   margin-right: var(--height_0);
 }
 
 .field input[type=radio]:checked + label:before {
   background-color: var(--blue_color);
-  opacity: 30%;
+  opacity: 0.3;
 }
 
 .mpass {
@@ -410,7 +410,7 @@ label span {
 }
 
 .button.cancel .ob {
-  opacity: 30%;
+  opacity: 0.3;
 }
 
 .button.delete .ob {
