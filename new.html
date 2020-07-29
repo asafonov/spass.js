@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html> 
+
+<head>
+  <title>Spass</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel=stylesheet type=text/css href="style.css">
+</head>
+
+<body>
+<DIV class="clear big_div">
+	<!-- top -->
+	<div class="row top">	
+		<!-- logo -->
+		<div class="logo"><img src="images/logo.svg"></div>
+		<!-- /logo -->	
+		<!-- action links -->
+		<div class="alinks wrap">
+			<div class="backup">
+				<div class="file">
+					<div class="ot2 ico"></div>
+					<span class="ot3">Backup</span>
+				</div>
+				<div class="file_up">
+					<div class="ot1 ico"></div>
+					<span class="ot2">Create backup</span>
+				</div>
+				<div class="file_down">
+					<div class="ot1 ico"></div>
+					<span class="ot2">Load backup</span>
+				</div>
+			</div>
+			<div class="new">
+				<span class="ot2">Cancel</span>
+			</div>	
+		</div>
+		<!-- /action links -->
+	</div>
+	<!-- /top -->
+	<!-- content -->
+	<div class="row edit">
+		<!--new item -->
+		<div class="item wrap">
+			<div class="ob ol_0"></div>
+			<div class="name ot1">New Spass item</div>
+			<div class="field">
+				<div class="ob ol_2"></div>
+				<input type="text" name="item_name" placeholder="Item’s name" class="ot2">
+				<span></span>
+			</div>
+			<div class="field">
+			    <input id="genpass" type="radio" name="spassword" value="generate Spass" checked>
+			    <label for="genpass"><span>generate Spass</span></label>
+			    <input id="manpass" type="radio" name="spassword" value="manual password">
+			    <label for="manpass"><span>manual password</span></label>
+			    <div class="field mpass">
+			    	<div class="ob ol_2"></div>
+					<input type="text" name="item_man_pass" placeholder="Enter your password" class="ot2">
+					<span></span>
+				</div>
+			</div>
+			<!-- button -->
+			<div class="button save">
+				<div class="ob ot2"></div>
+				<span class="ot1">Save</span>
+			</div>
+			<!-- /button -->
+		</div>	
+		<!-- /new item -->	
+	</div>
+	<!-- /content -->
+</DIV>
+
+</body>
+</html>

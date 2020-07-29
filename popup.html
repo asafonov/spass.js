@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html> 
+
+<head>
+  <title>Spass</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel=stylesheet type=text/css href="style.css">
+</head>
+
+<body>
+<DIV class="clear big_div popup_true">
+	<!-- top -->
+	<div class="row top">	
+		<!-- logo -->
+		<div class="logo"><img src="images/logo.svg"></div>
+		<!-- /logo -->	
+		<!-- action links -->
+		<div class="alinks wrap">
+			<div class="backup">
+				<div class="file">
+					<div class="ot2 ico"></div>
+					<span class="ot3">Backup</span>
+				</div>
+				<div class="file_up">
+					<div class="ot1 ico"></div>
+					<span class="ot2">Create backup</span>
+				</div>
+				<div class="file_down">
+					<div class="ot1 ico"></div>
+					<span class="ot2">Load backup</span>
+				</div>
+			</div>
+			<div class="new">
+				<span class="ot2">Cancel</span>
+			</div>	
+		</div>
+		<!-- /action links -->
+	</div>
+	<!-- /top -->
+	<!-- content -->
+	<div class="row edit">
+		<!--edit item -->
+		<div class="item wrap">
+			<div class="ob ol_0"></div>
+			<div class="name ot1">Edit Spass item</div>
+			<div class="field">
+				<div class="ob ol_2"></div>
+				<input type="text" name="item_name" value="Яндекс.Деньги" class="ot2">
+				<span></span>
+			</div>
+			<div class="field">
+			    <input id="genpass" type="radio" name="spassword" value="generate Spass" checked>
+			    <label for="genpass"><span>generate Spass</span></label>
+			    <input id="manpass" type="radio" name="spassword" value="manual password">
+			    <label for="manpass"><span>manual password</span></label>
+			    <div class="field mpass">
+			    	<div class="ob ol_2"></div>
+					<input type="text" name="item_man_pass" placeholder="Enter your password" class="ot2">
+					<span></span>
+				</div>
+			</div>
+			<!-- button -->
+			<div class="button save">
+				<div class="ob ot2"></div>
+				<span class="ot1">Save</span>
+			</div>
+			<!-- /button -->
+			<!-- button -->
+			<div class="button delete">
+				<div class="ob ot2"></div>
+				<span class="ot1">Delete item</span>
+			</div>
+			<!-- /button -->
+		</div>	
+		<!-- /edit item -->	
+	</div>
+	<div class="row popup">
+		<!--delete item -->
+		<div class="item wrap open">
+			<div class="ob ol_0"></div>
+			<div class="name ot1">Item Яндекс.Деньги will be permanently deleted.</div>
+			<div class="field">
+				<!-- button -->
+				<div class="button cancel">
+					<div class="ob"></div>
+					<span class="ot1">no, cancel</span>
+				</div>
+				<!-- /button -->
+				<!-- button -->
+				<div class="button delete">
+					<div class="ob ot2"></div>
+					<span class="ot1">yes,delete it</span>
+				</div>
+				<!-- /button -->				
+			</div>
+		</div>
+		<!--delete item -->
+	</div>
+	<!-- /content -->
+</DIV>
+
+</body>
+</html>

@@ -446,6 +446,10 @@ label span {
   margin-top: var(--height_4);
 }
 
+.templates {
+  display: none;
+}
+
 @media only screen and (orientation: landscape) {
   .big_div {
     display: none;
