@@ -37,6 +37,7 @@ u, p, input, label, textarea, select, option {
   z-index: auto;
   box-sizing: border-box;
   transition: 1s ease-in-out;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 html, body {

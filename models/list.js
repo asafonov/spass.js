@@ -2,7 +2,7 @@ class List {
 
   constructor() {
     this.items = {};
-    const passwords = window.localStorage.getItem('passwords');
+    const passwords = JSON.parse(window.localStorage.getItem('passwords'));
 
     for (let i in passwords) {
       this.items[i] = new Item(i, passwords[i]);
@@ -22,6 +22,6 @@ class List {
       passwords[i] = this.items[i].get();
     }
 
-    window.localStorage.setItem('passwords', passwords);
+    window.localStorage.setItem('passwords', JSON.stringify(passwords));
   }
 }
