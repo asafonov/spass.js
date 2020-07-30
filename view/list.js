@@ -11,7 +11,6 @@ class ListView {
     for (let i in this.model.items) {
       const item = new ItemListView(this.model.items[i]);
       this.element.appendChild(item.render());
-      item.destroy();
     }
   }
 

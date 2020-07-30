@@ -6,7 +6,7 @@ class Item {
     if (password === null || password === undefined) {
       this.update();
     } else {
-      this.set(name, password);
+      this.set(password);
     }
   }
 
