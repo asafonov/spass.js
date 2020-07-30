@@ -15,6 +15,9 @@ class List {
     this.save();
   }
 
+  load (data) {
+  }
+
   save() {
     let passwords = {};
 

@@ -74,9 +74,9 @@ class ItemListView {
   }
 
   destroy() {
+    this.manageEventListeners(true);
     this.template = null;
     this.model = null;
-    this.manageEventListeners(true);
     this.element = null;
     this.buffer = null;
   }

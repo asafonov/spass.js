@@ -451,6 +451,10 @@ label span {
   display: none;
 }
 
+.file_down input {
+  display: none;
+}
+
 @media only screen and (orientation: landscape) {
   .big_div {
     display: none;
