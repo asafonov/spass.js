@@ -36,10 +36,10 @@ class ItemListView {
   }
 
   hideAllActions() {
-    const actions = document.querySelectorAll('.actions');
+    const actions = document.querySelectorAll('.open');
 
     for (let i = 0; i < actions.length; ++i) {
-      actions[i].style.display = 'none';
+      actions[i].classList.remove('open');
     }
   }
 
@@ -60,6 +60,9 @@ class ItemListView {
   }
 
   onGenerate() {
+    this.model.update();
+    this.element.querySelector('.generate .done').classList.add('true');
+    setTimeout(this.hideAllDonesProxy, 2000);
   }
 
   onEdit() {
@@ -67,7 +70,7 @@ class ItemListView {
 
   onClick (event) {
     this.hideAllActions();
-    this.element.querySelector('.actions').style.display = 'flex';
+    this.element.classList.add('open');
   }
 
   destroy() {
