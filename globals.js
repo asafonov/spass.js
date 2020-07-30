@@ -4,6 +4,7 @@ window.asafonov.events = {
   ITEM_UPDATED: 'itemUpdated'
 };
 window.asafonov.settings = {
-  passwordLength: 16,
-  simpleByDefault: false
+  passwordMinLength: 12,
+  passwordMaxLength: 24,
+  simpleByDefault: true
 };
