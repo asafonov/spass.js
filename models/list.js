@@ -10,6 +10,7 @@ class List {
 
     asafonov.messageBus.subscribe(asafonov.events.ITEM_UPDATED, this, 'onItemUpdated');
     asafonov.messageBus.subscribe(asafonov.events.EDIT_DELETED, this, 'onEditDeleted');
+    asafonov.messageBus.subscribe(asafonov.events.EDIT_SAVED, this, 'onEditSaved');
   }
 
   onItemUpdated (data) {
@@ -20,12 +21,26 @@ class List {
     const name = data.item.name;
 
     if (this.items[name]) {
-      this.items[name].destroy();
-      this.items[name] = null;
-      delete this.items[name];
+      this.deleteItem(name);
       this.save();
       asafonov.messageBus.send(asafonov.events.LIST_UPDATED);
     }
+  }
+
+  onEditSaved (data) {
+    if (data.item && data.item.name == data.name) {
+      this.items[data.name].setOrUpdate(data.password);
+    } else {
+      data.item && this.deleteItem(data.item.name);
+      this.items[data.name] = new Item(data.name, data.password);
+      asafonov.messageBus.send(asafonov.events.LIST_UPDATED);
+    }
+  }
+
+  deleteItem (name) {
+    this.items[name].destroy();
+    this.items[name] = null;
+    delete this.items[name];
   }
 
   updateItem (name, password) {
@@ -58,6 +73,7 @@ class List {
   destroy() {
     asafonov.messageBus.unsubscribe(asafonov.events.ITEM_UPDATED, this, 'onItemUpdated');
     asafonov.messageBus.unsubscribe(asafonov.events.EDIT_DELETED, this, 'onEditDeleted');
+    asafonov.messageBus.unsubscribe(asafonov.events.EDIT_SAVED, this, 'onEditSaved');
     this.items = null;
   }
 }

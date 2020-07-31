@@ -4,11 +4,14 @@ class Item {
     this.name = name;
     this.simpleAlphabet = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     this.alphabet = Item.simpleAlphabet + "!#?@-*()[]\/+%:;&{},.<>_";
-    
-    if (password === null || password === undefined) {
-      this.update();
-    } else {
+    this.setOrUpdate(password);
+  }
+
+  setOrUpdate (password) {
+    if (password) {
       this.set(password);
+    } else {
+      this.update();
     }
   }
 
