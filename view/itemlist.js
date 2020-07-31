@@ -24,8 +24,6 @@ class ItemListView {
     this.buffer.id = 'itemListBuffer';
     this.buffer.style.width = '0px';
     this.buffer.style.height = '0px';
-    this.buffer.style.top = '0px';
-    this.buffer.style.left = '0px';
     this.buffer.style.position = 'absolute';
     this.buffer.style.background = 'transparent';
     document.body.insertBefore(this.buffer, document.body.childNodes[0]);
