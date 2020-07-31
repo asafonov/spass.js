@@ -14,11 +14,23 @@ class ItemListView {
   }
 
   initBuffer() {
+    this.buffer = document.querySelector('#itemListBuffer');
+
+    if (this.buffer) {
+      return ;
+    }
+
     this.buffer = document.createElement('textarea');
-    this.buffer.style.width = '1px';
-    this.buffer.style.height = '1px';
+    this.buffer.id = 'itemListBuffer';
+    this.buffer.style.width = '0px';
+    this.buffer.style.height = '0px';
+    this.buffer.style.top = '0px';
+    this.buffer.style.left = '0px';
+    this.buffer.style.position = 'absolute';
     this.buffer.style.background = 'transparent';
-    document.body.appendChild(this.buffer);
+    document.body.insertBefore(this.buffer, document.body.childNodes[0]);
+    this.buffer.value = 'itemListBuffer';
+    this.buffer.select();
   }
 
   manageEventListeners (remove) {
