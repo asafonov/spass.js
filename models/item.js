@@ -37,4 +37,7 @@ class Item {
   get() {
     return this.password;
   }
+
+  destroy() {
+  }
 }

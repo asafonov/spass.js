@@ -9,10 +9,23 @@ class List {
     }
 
     asafonov.messageBus.subscribe(asafonov.events.ITEM_UPDATED, this, 'onItemUpdated');
+    asafonov.messageBus.subscribe(asafonov.events.EDIT_DELETED, this, 'onEditDeleted');
   }
 
   onItemUpdated (data) {
     this.save();
+  }
+
+  onEditDeleted (data) {
+    const name = data.item.name;
+
+    if (this.items[name]) {
+      this.items[name].destroy();
+      this.items[name] = null;
+      delete this.items[name];
+      this.save();
+      asafonov.messageBus.send(asafonov.events.LIST_UPDATED);
+    }
   }
 
   updateItem (name, password) {
@@ -20,7 +33,7 @@ class List {
       this.items[name].set(password);
     } else {
       this.items[name] = new Item(name, password);
-      asafonov.messageBus.send(asafonov.events.ITEM_ADDED, {item: this.items[name]});
+      asafonov.messageBus.send(asafonov.events.LIST_UPDATED);
     }
 
     this.save();
@@ -40,5 +53,11 @@ class List {
     }
 
     window.localStorage.setItem('passwords', JSON.stringify(passwords));
+  }
+
+  destroy() {
+    asafonov.messageBus.unsubscribe(asafonov.events.ITEM_UPDATED, this, 'onItemUpdated');
+    asafonov.messageBus.unsubscribe(asafonov.events.EDIT_DELETED, this, 'onEditDeleted');
+    this.items = null;
   }
 }
