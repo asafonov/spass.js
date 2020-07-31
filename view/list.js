@@ -6,6 +6,7 @@ class ListView {
     this.element = document.querySelector('.items');
     asafonov.messageBus.subscribe(asafonov.events.ITEM_ADDED, this, 'render');
     asafonov.messageBus.subscribe(asafonov.events.EDIT_STARTED, this, 'hide');
+    asafonov.messageBus.subscribe(asafonov.events.EDIT_CANCELLED, this, 'show');
   }
 
   render() {
