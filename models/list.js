@@ -15,7 +15,19 @@ class List {
     this.save();
   }
 
+  updateItem (name, password) {
+    if (this.items[name]) {
+      this.items[name].set(password);
+    } else {
+      this.items[name] = new Item(name, password);
+      asafonov.messageBus.send(asafonov.events.ITEM_ADDED, {item: this.items[name]});
+    }
+  }
+
   load (data) {
+    for (let i in data) {
+      this.updateItem(i, data[i]);
+    }
   }
 
   save() {

@@ -3,6 +3,7 @@ class ListView {
   constructor (model) {
     this.model = model;
     this.element = document.querySelector('.items');
+    asafonov.messageBus.subscribe(asafonov.events.ITEM_ADDED, this, 'render');
   }
 
   render() {
@@ -17,5 +18,6 @@ class ListView {
   destroy() {
     this.model = null;
     this.element = null;
+    asafonov.messageBus.unsubscribe(asafonov.events.ITEM_ADDED, this, 'render');
   }
 }

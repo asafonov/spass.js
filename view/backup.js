@@ -31,9 +31,10 @@ class BackupView {
   onFileReady (event) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
+      const _this = this;
       
       reader.addEventListener('load', function (e) {
-        this.list.load(JSON.parse(e.target.result));
+        _this.list.load(JSON.parse(e.target.result));
       });
       
       reader.readAsBinaryString(event.target.files[0]);
