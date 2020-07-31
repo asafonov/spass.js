@@ -428,7 +428,7 @@ label span {
 
 .popup_true .new,
 .popup_true .row.edit,
-.popup            {
+.popup {
   display: none;
 }
 
@@ -452,6 +452,10 @@ label span {
 }
 
 .file_down input {
+  display: none;
+}
+
+.hidden {
   display: none;
 }
 

@@ -76,6 +76,7 @@ class ItemListView {
   }
 
   onEdit() {
+    asafonov.messageBus.send(asafonov.events.EDIT_STARTED, {item: this.model});
   }
 
   onClick (event) {
