@@ -22,6 +22,8 @@ class List {
       this.items[name] = new Item(name, password);
       asafonov.messageBus.send(asafonov.events.ITEM_ADDED, {item: this.items[name]});
     }
+
+    this.save();
   }
 
   load (data) {
