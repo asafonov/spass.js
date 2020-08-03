@@ -459,6 +459,10 @@ label span {
   display: none;
 }
 
+.error {
+  border-color: red;
+}
+
 @media only screen and (orientation: landscape) {
   .big_div {
     display: none;

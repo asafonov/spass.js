@@ -50,11 +50,27 @@ class ItemView {
   }
 
   onSave() {
+    const genpass = this.element.querySelector('#genpass').checked;
+    const name = this.element.querySelector('input[name=item_name]');
+    const pass = this.element.querySelector('input[name=item_man_pass]');
+    name.classList.remove('error');
+    pass.classList.remove('error');
+
+    if (name.value == '') {
+      name.classList.add('error');
+      return;
+    }
+
+    if (! genpass && pass.value == '') {
+      pass.classList.add('error');
+      return;
+    }
+
     this.hide();
     asafonov.messageBus.send(asafonov.events.EDIT_SAVED, {
       item: this.model,
-      name: this.element.querySelector('input[name=item_name]').value,
-      password: this.element.querySelector('#genpass').checked ? '' : this.element.querySelector('input[name=item_man_pass]').value
+      name: name.value,
+      password: genpass ? '' : pass.value
     });
   }
 
