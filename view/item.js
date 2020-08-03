@@ -50,10 +50,11 @@ class ItemView {
   }
 
   onSave() {
+    this.hide();
     asafonov.messageBus.send(asafonov.events.EDIT_SAVED, {
       item: this.model,
       name: this.element.querySelector('input[name=item_name]').value,
-      password: this.element.querySelector('input[name=item_man_pass]').value
+      password: this.element.querySelector('#genpass').checked ? '' : this.element.querySelector('input[name=item_man_pass]').value
     });
   }
 
