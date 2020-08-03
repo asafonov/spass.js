@@ -5,12 +5,15 @@ class ItemView {
     this.cancelButton = document.querySelector('.cancel');
     this.saveButton = this.element.querySelector('.save');
     this.deleteButton = this.element.querySelector('.delete');
+    this.newButton = document.querySelector('.new');
     this.onCancelProxy = this.onCancel.bind(this);
     this.onDeleteProxy = this.onDelete.bind(this);
     this.onSaveProxy = this.onSave.bind(this);
+    this.onNewProxy = this.onNew.bind(this);
     this.cancelButton.addEventListener('click', this.onCancelProxy);
     this.saveButton.addEventListener('click', this.onSaveProxy);
     this.deleteButton.addEventListener('click', this.onDeleteProxy);
+    this.newButton.addEventListener('click', this.onNewProxy);
     asafonov.messageBus.subscribe(asafonov.events.EDIT_STARTED, this, 'onEditStarted');
   }
 
@@ -74,12 +77,19 @@ class ItemView {
     });
   }
 
+  onNew() {
+    asafonov.messageBus.send(asafonov.events.EDIT_STARTED, {});
+  }
+
   destroy() {
     this.cancelButton.removeEventListener('click', this.hideProxy);
+    this.saveButton.removeEventListener('click', this.onSaveProxy);
+    this.deleteButton.removeEventListener('click', this.onDeleteProxy);
     this.element = null;
     this.cancelButton = null;
     this.deleteButton = null;
     this.saveButton = null;
+    this.newButton = null;
     asafonov.messageBus.unsubscribe(asafonov.events.EDIT_STARTED, this, 'onEditStarted');
   }
 }
