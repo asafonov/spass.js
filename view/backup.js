@@ -5,7 +5,6 @@ class BackupView {
     this.onPopupProxy = this.onPopup.bind(this);
     this.onFileExportProxy = this.onFileExport.bind(this);
     this.onFileImportProxy = this.onFileImport.bind(this);
-    this.onFileReadyProxy = this.onFileReady.bind(this);
     this.manageEventListeners();
   }
 
@@ -14,7 +13,6 @@ class BackupView {
     this.element[action]('click', this.onPopupProxy);
     this.element.querySelector('.file_up')[action]('click', this.onFileExportProxy);
     this.element.querySelector('.file_down')[action]('click', this.onFileImportProxy);
-    this.element.querySelector('.file_down input')[action]('change', this.onFileReadyProxy);
   }
 
   onPopup() {
@@ -25,20 +23,18 @@ class BackupView {
   }
 
   onFileImport() {
-    this.element.querySelector('input').click();
-  }
+    const hostname = prompt('Please enter spass desktop host', '192.168.0.1');
 
-  onFileReady (event) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      const _this = this;
-      
-      reader.addEventListener('load', function (e) {
-        _this.list.load(JSON.parse(e.target.result));
+    if (hostname) {
+      fetch('http://' + hostname + '/data')
+      .then(response => response.json())
+      .then(data => {
+        this.list.load(data);
+      })
+      .catch(error => {
+        console.log(error);
       });
-      
-      reader.readAsBinaryString(event.target.files[0]);
-    }   
+    }
   }
 
   hidePopup() {
