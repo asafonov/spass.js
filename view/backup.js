@@ -26,7 +26,7 @@ class BackupView {
     const hostname = prompt('Please enter spass desktop host', '192.168.0.1');
 
     if (hostname) {
-      fetch('http://' + hostname + '/data')
+      fetch('http://' + hostname + ':9092/data/')
       .then(response => response.json())
       .then(data => {
         this.list.load(data);
