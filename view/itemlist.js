@@ -10,25 +10,6 @@ class ItemListView {
     this.onGenerateProxy = this.onGenerate.bind(this);
     this.onEditProxy = this.onEdit.bind(this);
     this.hideAllDonesProxy = this.hideAllDones.bind(this);
-    this.initBuffer();
-  }
-
-  initBuffer() {
-    this.buffer = document.querySelector('#itemListBuffer');
-
-    if (this.buffer) {
-      return ;
-    }
-
-    this.buffer = document.createElement('textarea');
-    this.buffer.id = 'itemListBuffer';
-    this.buffer.style.width = '0px';
-    this.buffer.style.height = '0px';
-    this.buffer.style.position = 'absolute';
-    this.buffer.style.background = 'transparent';
-    document.body.insertBefore(this.buffer, document.body.childNodes[0]);
-    this.buffer.value = 'itemListBuffer';
-    this.buffer.select();
   }
 
   manageEventListeners (remove) {
@@ -62,9 +43,12 @@ class ItemListView {
   }
 
   onCopy() {
-    this.buffer.value = this.model.get();
-    this.buffer.select();
-    document.execCommand('copy');
+    navigator.clipboard.writeText(this.model.get()).then(() => {
+      console.log("success");
+    }).catch((e)=> {
+      console.log(e);
+    });
+
     this.element.querySelector('.copy .done').classList.add('true');
     setTimeout(this.hideAllDonesProxy, 2000);
   }
@@ -89,6 +73,5 @@ class ItemListView {
     this.template = null;
     this.model = null;
     this.element = null;
-    this.buffer = null;
   }
 }
