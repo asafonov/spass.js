@@ -49,6 +49,10 @@ class ItemListView {
       console.log(e);
     });
 
+    if (NativeAndroid !== null && NativeAndroid !== undefined) {
+      NativeAndroid.copyToClipboard(this.model.get());
+    }
+
     this.element.querySelector('.copy .done').classList.add('true');
     setTimeout(this.hideAllDonesProxy, 2000);
   }
