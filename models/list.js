@@ -67,7 +67,7 @@ class List {
       passwords[i] = this.items[i].get();
     }
 
-    return JSON,stringify(passwords);
+    return JSON.stringify(passwords);
   }
 
   save() {
