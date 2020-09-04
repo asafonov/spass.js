@@ -40,7 +40,7 @@ class BackupView {
       return;
     }
 
-    this.importFile(hostname);
+    this[this.promptAction](hostname);
     this.closeHostnameDialog();
   }
 
@@ -49,23 +49,40 @@ class BackupView {
   }
 
   onFileExport() {
+    this.promptAction = 'exportFile';
+    this.enterHostnameDialog();
   }
 
   onFileImport() {
+    this.promptAction = 'importFile';
     this.enterHostnameDialog();
   }
 
   importFile (hostname) {
-    if (hostname) {
-      fetch('http://' + hostname + ':9092/data/')
-      .then(response => response.json())
-      .then(data => {
-        this.list.load(data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    }
+    fetch('http://' + hostname + ':9092/data/')
+    .then(response => response.json())
+    .then(data => {
+      this.list.load(data);
+    })
+    .catch(error => {
+      alert(error.message);
+    });
+  }
+
+  exportFile (hostname) {
+    fetch('http://' + hostname + '9092/post/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: this.list.asString()
+    })
+    .then(() => {
+      alert("Export completed");
+    })
+    .catch(error => {
+      alert(error.message);
+    });
   }
 
   hidePopup() {

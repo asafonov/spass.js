@@ -60,14 +60,18 @@ class List {
     }
   }
 
-  save() {
+  asString() {
     let passwords = {};
 
     for (let i in this.items) {
       passwords[i] = this.items[i].get();
     }
 
-    window.localStorage.setItem('passwords', JSON.stringify(passwords));
+    return JSON,stringify(passwords);
+  }
+
+  save() {
+    window.localStorage.setItem('passwords', this.asString());
   }
 
   destroy() {
