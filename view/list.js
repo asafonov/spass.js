@@ -5,9 +5,8 @@ class ListView {
     this.views = {};
     this.element = document.querySelector('.items');
     asafonov.messageBus.subscribe(asafonov.events.LIST_UPDATED, this, 'render');
-    asafonov.messageBus.subscribe(asafonov.events.EDIT_STARTED, this, 'hide');
-    asafonov.messageBus.subscribe(asafonov.events.EDIT_CANCELLED, this, 'show');
-    asafonov.messageBus.subscribe(asafonov.events.EDIT_SAVED, this, 'show');
+    asafonov.messageBus.subscribe(asafonov.events.POPUP_SHOW, this, 'hide');
+    asafonov.messageBus.subscribe(asafonov.events.POPUP_HIDE, this, 'show');
   }
 
   render() {
@@ -39,8 +38,7 @@ class ListView {
     this.model = null;
     this.element = null;
     asafonov.messageBus.unsubscribe(asafonov.events.LIST_UPDATED, this, 'render');
-    asafonov.messageBus.unsubscribe(asafonov.events.EDIT_STARTED, this, 'hide');
-    asafonov.messageBus.unsubscribe(asafonov.events.EDIT_CANCELLED, this, 'show');
-    asafonov.messageBus.unsubscribe(asafonov.events.EDIT_SAVED, this, 'show');
+    asafonov.messageBus.unsubscribe(asafonov.events.POPUP_SHOW, this, 'hide');
+    asafonov.messageBus.unsubscribe(asafonov.events.POPUP_HIDE, this, 'show');
   }
 }

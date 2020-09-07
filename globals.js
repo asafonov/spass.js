@@ -9,6 +9,8 @@ window.asafonov.events = {
   EDIT_CANCELLED: 'editCancelled',
   EDIT_SAVED: 'editSaved',
   EDIT_DELETED: 'editDeleted',
+  POPUP_SHOW: 'popupShow',
+  POPUP_HIDE: 'popupHide'
 };
 window.asafonov.settings = {
   passwordMinLength: 12,

@@ -23,6 +23,7 @@ class ItemView {
     this.cancelButton.classList.remove('hidden');
     document.querySelector('.new_item').classList.add('hidden');
     document.querySelector('.new_item_ico').classList.add('hidden');
+    asafonov.messageBus.send(asafonov.events.POPUP_SHOW);
   }
 
   hide() {
@@ -30,6 +31,7 @@ class ItemView {
     this.cancelButton.classList.add('hidden');
     document.querySelector('.new_item').classList.remove('hidden');
     document.querySelector('.new_item_ico').classList.remove('hidden');
+    asafonov.messageBus.send(asafonov.events.POPUP_HIDE);
   }
 
   render () {

@@ -26,10 +26,12 @@ class BackupView {
 
   enterHostnameDialog() {
     this.prompt.classList.remove('hidden');
+    asafonov.messageBus.send(asafonov.events.POPUP_SHOW);
   }
 
   closeHostnameDialog() {
     this.prompt.classList.add('hidden');
+    asafonov.messageBus.send(asafonov.events.POPUP_HIDE);
   }
 
   promptAccepted() {
