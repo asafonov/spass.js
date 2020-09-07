@@ -37,6 +37,7 @@ class ItemView {
   render () {
     this.element.querySelector('.name').innerHTML = (this.model ? 'Edit' : 'Add') + ' Spass Item';
     this.element.querySelector('input[name=item_name]').value = this.model ? this.model.name : '';
+    this.deleteButton.classList[this.model ? 'remove' : 'add']('hidden');
   }
 
   onEditStarted (data) {
