@@ -33,6 +33,7 @@ class List {
     } else {
       data.item && this.deleteItem(data.item.name);
       this.items[data.name] = new Item(data.name, data.password);
+      this.save();
       asafonov.messageBus.send(asafonov.events.LIST_UPDATED);
     }
   }
