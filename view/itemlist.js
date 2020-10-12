@@ -10,6 +10,8 @@ class ItemListView {
     this.onGenerateProxy = this.onGenerate.bind(this);
     this.onEditProxy = this.onEdit.bind(this);
     this.hideAllDonesProxy = this.hideAllDones.bind(this);
+    this.swiper = new Swipe(this.element);
+    this.swiper.onLeft(function() {alert('YES!')});
   }
 
   manageEventListeners (remove) {
@@ -74,6 +76,8 @@ class ItemListView {
 
   destroy() {
     this.manageEventListeners(true);
+    this.swiper.destroy();
+    this.swiper = null;
     this.template = null;
     this.model = null;
     this.element = null;
