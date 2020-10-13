@@ -32,9 +32,11 @@ class ItemListView {
   }
 
   showPass() {
+    this.element.querySelector('.name').innerHTML = this.model.get();
   }
 
   hidePass() {
+    this.element.querySelector('.name').innerHTML = this.model.name;
   }
 
   hideAllActions() {
