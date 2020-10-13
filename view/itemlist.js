@@ -10,8 +10,11 @@ class ItemListView {
     this.onGenerateProxy = this.onGenerate.bind(this);
     this.onEditProxy = this.onEdit.bind(this);
     this.hideAllDonesProxy = this.hideAllDones.bind(this);
+    this.showPassProxy = this.showPass.bind(this);
+    this.hidePassProxy = this.hidePass.bind(this);
     this.swiper = new Swipe(this.element);
-    this.swiper.onLeft(function() {alert('YES!')});
+    this.swiper.onLeft(this.showPassProxy);
+    this.swiper.onRight(this.hidePassProxy);
   }
 
   manageEventListeners (remove) {
@@ -26,6 +29,12 @@ class ItemListView {
     this.element.innerHTML = this.template.replace(/{name}/g, this.model.name).replace(/{value}/g, this.model.get());
     this.manageEventListeners();
     return this.element;
+  }
+
+  showPass() {
+  }
+
+  hidePass() {
   }
 
   hideAllActions() {
