@@ -1,10 +1,11 @@
 class Swipe {
 
-  constructor (element) {
+  constructor (element, minMovement) {
     this.x = null;
     this.y = null;
     this.xn = null;
     this.yn = null;
+    this.minMovement = minMovement || 100;
     this.element = element;
     this.onTouchStartProxy = this.onTouchStart.bind(this);
     this.onTouchMoveProxy = this.onTouchMove.bind(this);
@@ -29,6 +30,10 @@ class Swipe {
     this.y = null;
     this.xn = null;
     this.yn = null;
+
+    if (Math.abs(xdiff) < this.minMovement && Math.abs(ydiff) < this.minMovement) {
+      return ;
+    }
 
     if (Math.abs(xdiff) > Math.abs(ydiff)) {
       this[xdiff < 0 ? 'onRight' : 'onLeft']();
@@ -77,6 +82,7 @@ class Swipe {
     this.y = null;
     this.xn = null;
     this.yn = null;
+    this.minMovement = null;
     this.removeEventListeners();
     this.element = null;
   }
