@@ -26,6 +26,7 @@ class BackupView {
 
   enterHostnameDialog() {
     this.prompt.classList.remove('hidden');
+    this.prompt.querySelector('input[name=hostname]').value = window.localStorage.getItem('hostname') || '';
     asafonov.messageBus.send(asafonov.events.POPUP_SHOW);
   }
 
@@ -42,6 +43,7 @@ class BackupView {
       return;
     }
 
+    window.localStorage.setItem('hostname', hostname);
     this[this.promptAction](hostname);
     this.closeHostnameDialog();
   }
