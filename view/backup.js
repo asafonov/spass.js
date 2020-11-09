@@ -26,7 +26,7 @@ class BackupView {
 
   enterHostnameDialog() {
     this.prompt.classList.remove('hidden');
-    this.prompt.querySelector('input[name=hostname]').value = window.localStorage.getItem('hostname') || '';
+    this.prompt.querySelector('input[name=hostname]').value = window.localStorage.getItem('hostname') || '192.168.0.1';
     asafonov.messageBus.send(asafonov.events.POPUP_SHOW);
   }
 
