@@ -266,6 +266,16 @@ label span {
   cursor: pointer;
 }
 
+.item .name.sweep_1 {
+  opacity: 0;
+  transition: 0s;
+}
+
+.item .name.sweep_2 {
+  opacity: 1;
+  transition: 0.9s;
+}
+
 .actions {
   display: none;
   border-top: calc(0.1*var(--height_0)) solid var(--border_color);

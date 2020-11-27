@@ -9,12 +9,16 @@ class ItemListView {
     this.onCopyProxy = this.onCopy.bind(this);
     this.onGenerateProxy = this.onGenerate.bind(this);
     this.onEditProxy = this.onEdit.bind(this);
+    this.onSwipeStartProxy = this.onSwipeStart.bind(this);
+    this.onSwipeEndProxy = this.onSwipeEnd.bind(this);
     this.hideAllDonesProxy = this.hideAllDones.bind(this);
     this.showPassProxy = this.showPass.bind(this);
     this.hidePassProxy = this.hidePass.bind(this);
     this.swiper = new Swipe(this.element);
     this.swiper.onLeft(this.showPassProxy);
     this.swiper.onRight(this.hidePassProxy);
+    this.swiper.onSwipeStart(this.onSwipeStartProxy);
+    this.swiper.onSwipeEnd(this.onSwipeEndProxy);
   }
 
   manageEventListeners (remove) {
@@ -33,6 +37,18 @@ class ItemListView {
 
   showPass() {
     this.element.querySelector('.name').innerHTML = this.model.get();
+  }
+
+  onSwipeStart() {
+    const name = this.element.querySelector('.name');
+    name.classList.remove('sweep_2');
+    name.classList.add('sweep_1');
+  }
+
+  onSwipeEnd() {
+    const name = this.element.querySelector('.name');
+    name.classList.remove('sweep_1');
+    name.classList.add('sweep_2');
   }
 
   hidePass() {
