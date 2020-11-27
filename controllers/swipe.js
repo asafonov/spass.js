@@ -13,27 +13,41 @@ class Swipe {
     this.addEventListeners();
   }
 
+  isMinimalMovement() {
+    const xdiff = this.x - this.xn;
+    const ydiff = this.y - this.yn;
+
+    return Math.abs(xdiff) > this.minMovement || Math.abs(ydiff) > this.minMovement;
+  }
+
   onTouchStart (event) {
     this.x = event.touches[0].clientX;
     this.y = event.touches[0].clientY;
+    this.xn = this.x;
+    this.yn = this.y;
+    this.swipeStarted = false;
   }
 
   onTouchMove (event) {
     this.xn = event.touches[0].clientX;
     this.yn = event.touches[0].clientY;
+
+    if (! this.swipeStarted && this.isMinimalMovement()) {
+      this.onSwipeStart();
+      this.swipeStarted = true;
+    }
+
+    this.swipeStarted && this.onSwipeMove();
   }
 
   onTouchEnd (event) {
-    const xdiff = this.x - this.xn;
-    const ydiff = this.y - this.yn;
-    this.x = null;
-    this.y = null;
-    this.xn = null;
-    this.yn = null;
-
-    if (Math.abs(xdiff) < this.minMovement && Math.abs(ydiff) < this.minMovement) {
+    if (! this.isMinimalMovement()) {
       return ;
     }
+
+    this.onSwipeEnd();
+    const xdiff = this.x - this.xn;
+    const ydiff = this.y - this.yn;
 
     if (Math.abs(xdiff) > Math.abs(ydiff)) {
       this[xdiff < 0 ? 'onRight' : 'onLeft']();
@@ -59,6 +73,21 @@ class Swipe {
 
   onDown (f) {
     f && (this.onDown = f);
+    return this;
+  }
+
+  onSwipeStart (f) {
+    f && (this.onSwipeStart = f);
+    return this;
+  }
+
+  onSwipeMove (f) {
+    f && (this.onSwipeMove = f);
+    return this;
+  }
+
+  onSwipeEnd (f) {
+    f && (this.onSwipeEnd = f);
     return this;
   }
 
