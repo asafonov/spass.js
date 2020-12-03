@@ -35,20 +35,21 @@ class ItemListView {
     return this.element;
   }
 
-  showPass() {
-    this.element.querySelector('.name').innerHTML = this.model.get();
-  }
-
   onSwipeStart() {
     const name = this.element.querySelector('.name');
-    name.classList.remove('sweep_2');
-    name.classList.add('sweep_1');
+    name.classList.remove('sweep');
+    name.classList.add('transparent');
   }
 
   onSwipeEnd() {
     const name = this.element.querySelector('.name');
-    name.classList.remove('sweep_1');
-    name.classList.add('sweep_2');
+    name.classList.remove('transparent');
+    name.classList.add('sweep');
+    setTimeout(function() {name.classList.remove('sweep')}, 1000);
+  }
+
+  showPass() {
+    this.element.querySelector('.name').innerHTML = this.model.get();
   }
 
   hidePass() {
