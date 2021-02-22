@@ -27,6 +27,10 @@ class List {
     }
   }
 
+  search (query) {
+    return Object.keys(this.items).filter(i => i.toLowerCase().indexOf(query.toLowerCase()) > -1);
+  }
+
   onEditSaved (data) {
     if (data.item && data.item.name == data.name) {
       this.items[data.name].setOrUpdate(data.password);

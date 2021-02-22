@@ -56,6 +56,14 @@ class ItemListView {
     this.element.querySelector('.name').innerHTML = this.model.name;
   }
 
+  hide() {
+    this.element.classList.add('hidden');
+  }
+
+  show() {
+    this.element.classList.remove('hidden');
+  }
+
   hideAllActions() {
     const actions = document.querySelectorAll('.open');
 
