@@ -63,7 +63,7 @@ class BackupView {
   }
 
   importFile (hostname) {
-    fetch('http://' + hostname + ':9092/data/')
+    fetch('https://' + hostname + ':9092/data/')
     .then(response => response.json())
     .then(data => {
       this.list.load(data);
@@ -74,7 +74,7 @@ class BackupView {
   }
 
   exportFile (hostname) {
-    fetch('http://' + hostname + ':9092/post/', {
+    fetch('https://' + hostname + ':9092/post/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
