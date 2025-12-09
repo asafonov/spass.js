@@ -3,9 +3,11 @@ class BackupView {
     this.element = document.querySelector('.backup')
     this.list = list
     this.a = this.createDownloadElement()
+    this.fileInput = this.createUploadElement()
     this.onPopupProxy = this.onPopup.bind(this)
     this.onFileExportProxy = this.onFileExport.bind(this)
     this.onFileImportProxy = this.onFileImport.bind(this)
+    this.onFileUploadProxy = this.onFileUpload.bind(this)
     this.manageEventListeners()
   }
 
@@ -14,6 +16,7 @@ class BackupView {
     this.element[action]('click', this.onPopupProxy)
     this.element.querySelector('.file_up')[action]('click', this.onFileExportProxy)
     this.element.querySelector('.file_down')[action]('click', this.onFileImportProxy)
+    this.fileInput[action]('change', this.onFileUploadProxy)
   }
 
   onPopup() {
@@ -28,41 +31,42 @@ class BackupView {
     return a
   }
 
+  createUploadElement() {
+    const i = document.createElement('input')
+    i.setAttribute('type', 'file')
+    i.style.display = 'none'
+    document.body.appendChild(i)
+    return i
+  }
+
   onFileExport() {
     this.a.href = URL.createObjectURL(new Blob([this.list.asString()], {type: 'text/json'}))
     this.a.click()
+    this.hidePopup()
   }
 
   onFileImport() {
-    this.promptAction = 'importFile'
-    this.enterHostnameDialog()
+    this.fileInput.click()
   }
 
-  importFile (hostname) {
-    fetch('https://' + hostname + ':9092/data/')
-    .then(response => response.json())
-    .then(data => {
-      this.list.load(data)
-    })
-    .catch(error => {
-      alert(error.message)
-    })
-  }
+  onFileUpload (event) {
+    const file = event.target.files[0]
 
-  exportFile (hostname) {
-    fetch('https://' + hostname + ':9092/post/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: this.list.asString()
-    })
-    .then(() => {
-      alert("Export completed")
-    })
-    .catch(error => {
-      alert(error.message)
-    })
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = e => {
+        try {
+          const data = JSON.parse(e.target.result)
+          this.list.load(data)
+          this.hidePopup()
+        } catch (error) {
+          alert(error.message)
+        }
+      }
+      reader.readAsText(file)
+    } else {
+      alert('Unsupported file format')
+    }
   }
 
   hidePopup() {
@@ -72,6 +76,8 @@ class BackupView {
   destroy() {
     this.manageEventListeners(true)
     this.element = null
+    this.a = null
+    this.fileInput = null
     this.list = null
   }
 }
