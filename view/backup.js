@@ -1,76 +1,52 @@
 class BackupView {
   constructor (list) {
-    this.element = document.querySelector('.backup');
-    this.prompt = document.querySelector('.prompt');
-    this.list = list;
-    this.onPopupProxy = this.onPopup.bind(this);
-    this.onFileExportProxy = this.onFileExport.bind(this);
-    this.onFileImportProxy = this.onFileImport.bind(this);
-    this.promptAcceptedProxy = this.promptAccepted.bind(this);
-    this.promptCancelledProxy = this.promptCancelled.bind(this);
-    this.manageEventListeners();
+    this.element = document.querySelector('.backup')
+    this.list = list
+    this.a = this.createDownloadElement()
+    this.onPopupProxy = this.onPopup.bind(this)
+    this.onFileExportProxy = this.onFileExport.bind(this)
+    this.onFileImportProxy = this.onFileImport.bind(this)
+    this.manageEventListeners()
   }
 
   manageEventListeners (remove) {
-    const action = remove ? 'removeEventListener' : 'addEventListener';
-    this.element[action]('click', this.onPopupProxy);
-    this.element.querySelector('.file_up')[action]('click', this.onFileExportProxy);
-    this.element.querySelector('.file_down')[action]('click', this.onFileImportProxy);
-    this.prompt.querySelector('.ok')[action]('click', this.promptAcceptedProxy);
-    this.prompt.querySelector('.cancel')[action]('click', this.promptCancelledProxy);
+    const action = remove ? 'removeEventListener' : 'addEventListener'
+    this.element[action]('click', this.onPopupProxy)
+    this.element.querySelector('.file_up')[action]('click', this.onFileExportProxy)
+    this.element.querySelector('.file_down')[action]('click', this.onFileImportProxy)
   }
 
   onPopup() {
-    this.element.classList.add('open');
+    this.element.classList.add('open')
   }
 
-  enterHostnameDialog() {
-    this.prompt.classList.remove('hidden');
-    this.prompt.querySelector('input[name=hostname]').value = window.localStorage.getItem('hostname') || '192.168.0.1';
-    asafonov.messageBus.send(asafonov.events.POPUP_SHOW);
-  }
-
-  closeHostnameDialog() {
-    this.prompt.classList.add('hidden');
-    asafonov.messageBus.send(asafonov.events.POPUP_HIDE);
-  }
-
-  promptAccepted() {
-    const hostname = this.prompt.querySelector('input[name=hostname]').value;
-
-    if (! hostname) {
-      alert("Hostname can't be empty");
-      return;
-    }
-
-    window.localStorage.setItem('hostname', hostname);
-    this[this.promptAction](hostname);
-    this.closeHostnameDialog();
-  }
-
-  promptCancelled() {
-    this.closeHostnameDialog();
+  createDownloadElement() {
+    const a = document.createElement('a')
+    a.style.display = 'none'
+    document.body.appendChild(a)
+    a.download = 'spass.json'
+    return a
   }
 
   onFileExport() {
-    this.promptAction = 'exportFile';
-    this.enterHostnameDialog();
+    this.a.href = URL.createObjectURL(new Blob([this.list.asString()], {type: 'text/json'}))
+    this.a.click()
   }
 
   onFileImport() {
-    this.promptAction = 'importFile';
-    this.enterHostnameDialog();
+    this.promptAction = 'importFile'
+    this.enterHostnameDialog()
   }
 
   importFile (hostname) {
     fetch('https://' + hostname + ':9092/data/')
     .then(response => response.json())
     .then(data => {
-      this.list.load(data);
+      this.list.load(data)
     })
     .catch(error => {
-      alert(error.message);
-    });
+      alert(error.message)
+    })
   }
 
   exportFile (hostname) {
@@ -82,20 +58,20 @@ class BackupView {
       body: this.list.asString()
     })
     .then(() => {
-      alert("Export completed");
+      alert("Export completed")
     })
     .catch(error => {
-      alert(error.message);
-    });
+      alert(error.message)
+    })
   }
 
   hidePopup() {
-    this.element.classList.remove('open');
+    this.element.classList.remove('open')
   }
 
   destroy() {
-    this.manageEventListeners(true);
-    this.element = null;
-    this.list = null;
+    this.manageEventListeners(true)
+    this.element = null
+    this.list = null
   }
 }
