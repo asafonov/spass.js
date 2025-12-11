@@ -26,7 +26,7 @@ class BackupView {
   }
 
   createQRCode() {
-    const size = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) * 0.9
+    const size = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) * 0.96
     return new QRCode(this.qrCodeElement.querySelector('div'), {width: size, height: size})
   }
 
@@ -34,6 +34,7 @@ class BackupView {
     const div = document.createElement('div')
     const w = document.documentElement.clientWidth
     const h = document.documentElement.clientHeight
+    const size = Math.min(w, h)
     div.style.position = 'fixed'
     div.style.top = '0px'
     div.style.left = '0px'
@@ -41,16 +42,21 @@ class BackupView {
     div.style.height = `${h}px`
     div.style.display = 'none'
     div.style.zIndex = '999'
-    div.style.backgroundColor = '#ffffff'
+    div.className = 'back_color'
     div.style.justifyContent = 'center'
     div.style.alignItems = 'center'
     div.style.flexDirection = 'column'
     document.body.appendChild(div)
     const qrDiv = document.createElement('div')
+    qrDiv.style.width = `${size}px`
+    qrDiv.style.height = `${size}px`
+    qrDiv.style.justifyContent = 'center'
+    qrDiv.style.alignItems = 'center'
+    qrDiv.style.display = 'flex'
+    qrDiv.style.backgroundColor = '#ffffff'
     div.appendChild(qrDiv)
-    const button = document.createElement('button')
+    const button = document.createElement('div')
     button.innerHTML = 'Close'
-    button.value = 'Close'
     button.style.marginTop = '20px'
     button.addEventListener('click', () => {
       div.style.display = 'none'
