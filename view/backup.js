@@ -88,6 +88,8 @@ class BackupView {
     const video = document.createElement('video')
     video.setAttribute('autoplay', true)
     video.setAttribute('playsinline', true)
+    video.setAttribute('width', w)
+    video.setAttribute('height', h)
     div.appendChild(video)
 
     const canvas = document.createElement('canvas')
