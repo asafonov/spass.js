@@ -371,7 +371,10 @@ class BackupView {
     const video = this.scannerElement.querySelector('video')
     const canvas = this.scannerElement.querySelector('canvas')
     const ctx = canvas.getContext('2d')
+    alert(video.getAttribute('width') + '+' + video.videoWidth)
+    alert(video.getAttribute('height') + '+' + video.videoHeight)
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
+      alert('readyState')
       canvas.width = video.videoWidth
       canvas.height = video.videoHeight
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
