@@ -47,7 +47,7 @@ class BackupView {
     for (let i = 0; i < numberOfQRCodesNeeded; ++i) {
       const qrDiv = this.createQRCodeElement(size)
       div.appendChild(qrDiv)
-      this.qrCodes.push(this.createQRCode(size * 0.96, qrDiv)
+      this.qrCodes.push(this.createQRCode(size * 0.96, qrDiv))
     }
 
     const button = document.createElement('div')
