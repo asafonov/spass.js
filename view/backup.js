@@ -2,8 +2,9 @@ class BackupView {
   constructor (list) {
     this.element = document.querySelector('.backup')
     this.list = list
-    this.qrCodeElement = this.createQRCodeElement()
-    this.qrCode = this.createQRCode()
+    this.qrCodeLimit = 10
+    this.qrCodes = []
+    this.qrCodeElement = this.initQRCodes()
     this.scannerElement = this.createScannerElement()
     this.stream = null
     this.scanning = false
@@ -22,16 +23,7 @@ class BackupView {
     this.element.querySelector('.file_down')[action]('click', this.onImportProxy)
   }
 
-  onPopup() {
-    this.element.classList.add('open')
-  }
-
-  createQRCode() {
-    const size = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) * 0.96
-    return new QRCode(this.qrCodeElement.querySelector('div'), {width: size, height: size})
-  }
-
-  createQRCodeElement() {
+  initQRCodes() {
     const div = document.createElement('div')
     const w = document.documentElement.clientWidth
     const h = document.documentElement.clientHeight
@@ -49,14 +41,14 @@ class BackupView {
     div.style.flexDirection = 'column'
     document.body.appendChild(div)
 
-    const qrDiv = document.createElement('div')
-    qrDiv.style.width = `${size}px`
-    qrDiv.style.height = `${size}px`
-    qrDiv.style.justifyContent = 'center'
-    qrDiv.style.alignItems = 'center'
-    qrDiv.style.display = 'flex'
-    qrDiv.style.backgroundColor = '#ffffff'
-    div.appendChild(qrDiv)
+    const numberOfItems = this.list.count()
+    const numberOfQRCodesNeeded = parseInt(numberOfItems / this.limit,  10) + (numberOfItems > 0 && numberOfItems % this.limit > 0 ? 1 : 0)
+
+    for (let i = 0; i < numberOfQRCodesNeeded; ++i) {
+      const qrDiv = this.createQRCodeElement(size)
+      div.appendChild(qrDiv)
+      this.qrCodes.push(this.createQRCode(size * 0.96, qrDiv)
+    }
 
     const button = document.createElement('div')
     button.innerHTML = 'Close'
@@ -67,6 +59,25 @@ class BackupView {
 
     div.appendChild(button)
     return div
+  }
+
+  onPopup() {
+    this.element.classList.add('open')
+  }
+
+  createQRCode (size, qrDiv) {
+    return new QRCode(qrDiv, {width: size, height: size})
+  }
+
+  createQRCodeElement (size) {
+    const qrDiv = document.createElement('div')
+    qrDiv.style.width = `${size}px`
+    qrDiv.style.height = `${size}px`
+    qrDiv.style.justifyContent = 'center'
+    qrDiv.style.alignItems = 'center'
+    qrDiv.style.display = 'flex'
+    qrDiv.style.backgroundColor = '#ffffff'
+    return qrDiv
   }
 
   createScannerElement() {
@@ -100,8 +111,12 @@ class BackupView {
 
   onExport() {
     this.qrCodeElement.style.display = 'flex'
-    this.qrCode.makeCode(this.list.asString())
     this.hidePopup()
+    const qrCodes = this.list.asStrings(this.qrCodeLimit)
+
+    for (let i = 0; i < qrCodes.length; ++i) {
+      this.qrCodes[i].makeCode(qrCodes[i])
+    }
   }
 
   async startCamera() {

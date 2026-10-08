@@ -67,14 +67,28 @@ class List {
     }
   }
 
-  asString() {
+  asStrings (limit = 10) {
+    const results = []
     let passwords = {}
+    let counter = 0
 
     for (let i in this.items) {
-      passwords[i] = this.items[i].get()
+      if (counter > 0 && counter % limit === 0) {
+        results.push(JSON.stringify(passwords))
+        passwords = {}
+      }
+
+      passwords[i] = this.list[i]
+      counter++
     }
 
-    return JSON.stringify(passwords)
+    results.push(JSON.stringify(passwords))
+
+    return results
+  }
+
+  count() {
+    return Object.keys(this.items).length
   }
 
   save() {
