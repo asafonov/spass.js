@@ -3,8 +3,6 @@ class BackupView {
     this.element = document.querySelector('.backup')
     this.list = list
     this.qrCodeLimit = 10
-    this.qrCodes = []
-    this.qrCodeElement = this.initQRCodes()
     this.scannerElement = this.createScannerElement()
     this.stream = null
     this.scanning = false
@@ -24,21 +22,27 @@ class BackupView {
   }
 
   initQRCodes() {
-    const div = document.createElement('div')
+    if (this.qrCodeElement) {
+      this.qrCodeElement.innerHTML = ''
+    } else {
+      this.qrCodeElement = document.createElement('div')
+    }
+
+    this.qrCodes = []
     const w = document.documentElement.clientWidth
     const h = document.documentElement.clientHeight
     const size = Math.min(w, h)
-    div.style.position = 'fixed'
-    div.style.top = '0px'
-    div.style.left = '0px'
-    div.style.width = `${w}px`
-    div.style.height = `${h}px`
-    div.style.display = 'none'
-    div.style.zIndex = '999'
-    div.className = 'back_color'
-    div.style.justifyContent = 'center'
-    div.style.alignItems = 'center'
-    div.style.flexDirection = 'column'
+    this.qrCodeElement.style.position = 'fixed'
+    this.qrCodeElement.style.top = '0px'
+    this.qrCodeElement.style.left = '0px'
+    this.qrCodeElement.style.width = `${w}px`
+    this.qrCodeElement.style.height = `${h}px`
+    this.qrCodeElement.style.display = 'none'
+    this.qrCodeElement.style.zIndex = '999'
+    this.qrCodeElement.className = 'back_color'
+    this.qrCodeElement.style.justifyContent = 'center'
+    this.qrCodeElement.style.alignItems = 'center'
+    this.qrCodeElement.style.flexDirection = 'column'
     document.body.appendChild(div)
 
     const numberOfItems = this.list.count()
@@ -46,7 +50,7 @@ class BackupView {
 
     for (let i = 0; i < numberOfQRCodesNeeded; ++i) {
       const qrDiv = this.createQRCodeElement(size)
-      div.appendChild(qrDiv)
+      this.qrCodeElement.appendChild(qrDiv)
       this.qrCodes.push(this.createQRCode(size * 0.96, qrDiv))
     }
 
@@ -54,11 +58,10 @@ class BackupView {
     button.innerHTML = 'Close'
     button.style.marginTop = '20px'
     button.addEventListener('click', () => {
-      div.style.display = 'none'
+      this.qrCodeElement.style.display = 'none'
     })
 
-    div.appendChild(button)
-    return div
+    this.qrCodeElement.appendChild(button)
   }
 
   onPopup() {
