@@ -26,7 +26,7 @@ class BackupView {
       this.qrCodeElement.innerHTML = ''
     } else {
       this.qrCodeElement = document.createElement('div')
-      document.body.appendChild(div)
+      document.body.appendChild(this.qrCodeElement)
     }
 
     this.qrCodes = []
