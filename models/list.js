@@ -62,10 +62,6 @@ class List {
   }
 
   load (data) {
-    for (let i in this.items) {
-      this.deleteItem(i)
-    }
-
     for (let i in data) {
       this.updateItem(i, data[i])
     }
