@@ -113,6 +113,7 @@ class BackupView {
   }
 
   onExport() {
+    this.initQRCodes()
     this.qrCodeElement.style.display = 'flex'
     this.hidePopup()
     const qrCodes = this.list.asStrings(this.qrCodeLimit)
