@@ -26,6 +26,7 @@ class BackupView {
       this.qrCodeElement.innerHTML = ''
     } else {
       this.qrCodeElement = document.createElement('div')
+      document.body.appendChild(div)
     }
 
     this.qrCodes = []
@@ -43,7 +44,6 @@ class BackupView {
     this.qrCodeElement.style.justifyContent = 'center'
     this.qrCodeElement.style.alignItems = 'center'
     this.qrCodeElement.style.flexDirection = 'column'
-    document.body.appendChild(div)
 
     const numberOfItems = this.list.count()
     const numberOfQRCodesNeeded = parseInt(numberOfItems / this.limit,  10) + (numberOfItems > 0 && numberOfItems % this.limit > 0 ? 1 : 0)
