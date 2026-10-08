@@ -73,18 +73,22 @@ class List {
     let counter = 0
 
     for (let i in this.items) {
-      if (counter > 0 && counter % limit === 0) {
+      if (counter > 0 && limit > 0 && counter % limit === 0) {
         results.push(JSON.stringify(passwords))
         passwords = {}
       }
 
-      passwords[i] = this.list[i]
+      passwords[i] = this.items[i].get()
       counter++
     }
 
     results.push(JSON.stringify(passwords))
 
     return results
+  }
+
+  asString() {
+    return this.asStrings(0)[0]
   }
 
   count() {
