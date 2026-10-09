@@ -44,12 +44,14 @@ class BackupView {
     this.qrCodeElement.style.justifyContent = 'center'
     this.qrCodeElement.style.alignItems = 'center'
     this.qrCodeElement.style.flexDirection = 'column'
+    this.qrCodeElement.style.overflowY = 'auto'
 
     const numberOfItems = this.list.count()
     const numberOfQRCodesNeeded = parseInt(numberOfItems / this.qrCodeLimit,  10) + (numberOfItems > 0 && numberOfItems % this.qrCodeLimit > 0 ? 1 : 0)
 
     for (let i = 0; i < numberOfQRCodesNeeded; ++i) {
       const qrDiv = this.createQRCodeElement(size)
+      i > 0 && (this.qrCodeElement.style.marginTop = '20px')
       this.qrCodeElement.appendChild(qrDiv)
       this.qrCodes.push(this.createQRCode(size * 0.96, qrDiv))
     }
