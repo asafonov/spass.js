@@ -46,7 +46,7 @@ class BackupView {
     this.qrCodeElement.style.flexDirection = 'column'
 
     const numberOfItems = this.list.count()
-    const numberOfQRCodesNeeded = parseInt(numberOfItems / this.limit,  10) + (numberOfItems > 0 && numberOfItems % this.limit > 0 ? 1 : 0)
+    const numberOfQRCodesNeeded = parseInt(numberOfItems / this.qrCodeLimit,  10) + (numberOfItems > 0 && numberOfItems % this.qrCodeLimit > 0 ? 1 : 0)
 
     for (let i = 0; i < numberOfQRCodesNeeded; ++i) {
       const qrDiv = this.createQRCodeElement(size)
