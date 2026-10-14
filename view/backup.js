@@ -63,9 +63,10 @@ class BackupView {
 
       const prevNext = document.createElement('div')
       prevNext.style.marginTop = '20px'
-      const prev = document.createElement('div')
+      const prev = document.createElement('span')
       prev.innerHTML = 'prev'
-      const next = document.createElement('div')
+      prev.style.visibility = 'hidden'
+      const next = document.createElement('span')
       next.innerHTML = 'next'
       next.style.marginLeft = '20px'
       prevNext.appendChild(prev)
@@ -74,7 +75,7 @@ class BackupView {
 
       const showIndex = index => {
         for (let i = 0; i < qrDivs.length; ++i) {
-          qrDivs.style.display = i === index ? 'block' : 'none'
+          qrDivs[i].style.display = i === index ? 'flex' : 'none'
         }
       }
 
