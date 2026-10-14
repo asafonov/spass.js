@@ -48,12 +48,49 @@ class BackupView {
 
     const numberOfItems = this.list.count()
     const numberOfQRCodesNeeded = parseInt(numberOfItems / this.qrCodeLimit,  10) + (numberOfItems > 0 && numberOfItems % this.qrCodeLimit > 0 ? 1 : 0)
+    const qrDivs = []
 
     for (let i = 0; i < numberOfQRCodesNeeded; ++i) {
       const qrDiv = this.createQRCodeElement(size)
       i > 0 && (qrDiv.style.marginTop = '20px')
       this.qrCodeElement.appendChild(qrDiv)
       this.qrCodes.push(this.createQRCode(size * 0.96, qrDiv))
+      qrDivs.push(qrDiv)
+    }
+
+    if (numberOfQRCodesNeeded > 1) {
+      let currentQR = 0
+
+      const prevNext = document.createElement('div')
+      prevNext.style.marginTop = '20px'
+      const prev = document.createElement('div')
+      prev.innerHTML = 'prev'
+      const next = document.createElement('div')
+      next.innerHTML = 'next'
+      next.style.marginLeft = '20px'
+      prevNext.appendChild(prev)
+      prevNext.appendChild(next)
+      this.qrCodeElement.appendChild(prevNext)
+
+      const showIndex = index => {
+        for (let i = 0; i < qrDivs.length; ++i) {
+          qrDivs.style.display = i === index ? 'block' : 'none'
+        }
+      }
+
+      const onNextPrev = step => {
+        currentQR = Math.max(0, Math.min(qrDivs.length - 1, currentQR + step))
+        prev.style.visibility = currentQR > 0 ? 'visible' : 'hidden'
+        next.style.visibility = currentQR < qrDivs.length - 1 ? 'visible' : 'hidden'
+        showIndex(currentQR)
+      }
+
+      const onNext = () => onNextPrev(1)
+      const onPrev = () => onNextPrev(-1)
+      prev.addEventListener('click', onPrev)
+      next.addEventListener('click', onNext)
+
+      showIndex(0)
     }
 
     const button = document.createElement('div')
